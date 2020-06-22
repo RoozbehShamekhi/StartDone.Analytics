@@ -12,50 +12,47 @@
 
         <a href="javascript:void(0)">
             <i class="glyphicon glyphicon-book"></i>
-            مدیرت دانشجویان
+            مدیرت داده
             <i class="glyphicon glyphicon-chevron-right pull-right gly-rotate-90"></i>
         </a>
 
         <ul class="collapse nav aside-sub-panel " id="sub-menu-site">
             <li>
-                <a href="@Url.Action("Index", "Student")">
+                <a href="@Url.Action("Index", "Log")">
                     <i class="glyphicon glyphicon-book"></i>
-                    لیست دانشجویان
+                    لیست داده های خام
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Vistor")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    لیست بازدیدکنندگان
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "IPAddress")">
+                    <i class="glyphicon glyphicon-book"></i>
+                    IP Address
                 </a>
             </li>
 
-            @*<li>
-                    <a href="#">
-                        <i class="glyphicon glyphicon-book"></i>
-                        شرکت کننده در نظرسنجی
-                    </a>
-                </li>
 
-                <li>
-                    <a href="#">
-                        <i class="glyphicon glyphicon-book"></i>
-                        شرکت نکرده در نظرسنجی
-                    </a>
-                </li>*@
+            @*<li>
+            <a href="#">
+                <i class="glyphicon glyphicon-book"></i>
+                شرکت کننده در نظرسنجی
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="glyphicon glyphicon-book"></i>
+                شرکت نکرده در نظرسنجی
+            </a>
+        </li>*@
 
         </ul>
 
-    </li>
-
-
-
-    <li>
-        <a href="@Url.Action("index","Turn")">
-            <i class="glyphicon glyphicon-list"></i>
-            نوبت دهی
-        </a>
-    </li>
-
-    <li>
-        <a href="@Url.Action("Index", "Form")">
-            <i class="glyphicon glyphicon-list"></i>
-            پرسش نامه ها
-        </a>
     </li>
 
     @*<li>
@@ -66,7 +63,7 @@
         </li>*@
 
     <li>
-        <a href="@Url.Action("index","Report")">
+        <a href="#">
             <i class="glyphicon glyphicon-book"></i>
             گزارشات
         </a>

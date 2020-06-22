@@ -16,6 +16,7 @@ namespace StartDone.Analytics.Models.Domian
     {
         public int PV_ID { get; set; }
         public int PV_VisitorID { get; set; }
+        public int PV_LogID { get; set; }
         public string PV_PageUrl { get; set; }
         public string PV_Referrer { get; set; }
         public string PV_WindowSize { get; set; }
@@ -25,7 +26,9 @@ namespace StartDone.Analytics.Models.Domian
         public string PV_UserAgent { get; set; }
         public System.DateTime PV_DateTime { get; set; }
     
-        public virtual Tbl_Code Tbl_BrowerCode { get; set; }
-        public virtual Tbl_Code Tbl_PlatformCode { get; set; }
+        public virtual Tbl_Code Tbl_Code { get; set; }
+        public virtual Tbl_Code Tbl_Code1 { get; set; }
+        public virtual Tbl_Log Tbl_Log { get; set; }
+        public virtual Tbl_Visitor Tbl_Visitor { get; set; }
     }
 }

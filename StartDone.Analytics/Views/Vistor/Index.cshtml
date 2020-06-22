@@ -1,0 +1,99 @@
+﻿@model IEnumerable<StartDone.Analytics.Models.ViewModels.Model_VistorList>
+
+@{
+    ViewBag.Title = "بازدید کنندگان";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="panel panel-body panel-default navigation">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+
+</div>
+
+<div class="panel panel-default">
+
+    <div class="panel-body table-body" style="overflow-x:auto;">
+
+        <table id="StudentsDataTable" class="table table-bordered table-striped table-secondary" style="width:100%;">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.ID)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.IP)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Type)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.DateTime)</th>
+
+                    <th scope="col">کنترل</th>
+                </tr>
+            </thead>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+           $('#StudentsDataTable').DataTable({
+                "ajax": {
+                   "url": "/Vistor/GetVisitor",
+                    "type": "POST",
+                    "datatype": "json",
+                },
+                "columns": [
+                    { "data": "ID", "name": "ID" },
+                    { "data": "IP", "name": "IP" },
+                    { "data": "Type", "name": "Type" },
+                    { "data": "DateTime", "name": "DateTime" },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<a class='control btn btn-warning btn-sm glyphicon glyphicon-scale' data-toggle='tooltip' data-placement='auto' title='ثبت اطلاعات سلامت' href='javascript:void(0)' onclick='CreateHealthInformation(" + data + ")'></a>&nbsp;" +
+                                   "<a class='control btn btn-info btn-sm glyphicon glyphicon-list' data-toggle='tooltip' data-placement='auto' title='اطلاعات کاربر' href='@Url.Action("Details", "Student")/" + data + "'></a>&nbsp;" +
+                                   "<a class='control btn btn-danger btn-sm glyphicon glyphicon-trash' data-toggle='tooltip' data-placement='auto' title='حذف' href='javascript:void(0)' onclick='Delete(" + data + ")'></a>&nbsp;";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "150px"
+                    }
+                ],
+                "serverSide": true,
+                "order": [0, "asc"],
+                "processing": true,
+                "language": {
+                    "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "_MENU_",
+                    "sLoadingRecords": "در حال بارگزاری...",
+                    "sProcessing": "در حال پردازش...",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "جستجو",
+                    "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                    "oPaginate": {
+                        "sFirst": "ابتدا",
+                        "sLast": "انتها",
+                        "sNext": "بعدی",
+                        "sPrevious": "قبلی"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+                        "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                    }
+                },
+                "scrollX": true
+            });
+        });
+    </script>
+}

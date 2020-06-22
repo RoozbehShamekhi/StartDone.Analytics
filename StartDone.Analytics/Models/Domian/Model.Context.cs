@@ -28,10 +28,11 @@ namespace StartDone.Analytics.Models.Domian
         public virtual DbSet<Tbl_Code> Tbl_Code { get; set; }
         public virtual DbSet<Tbl_CodeGroup> Tbl_CodeGroup { get; set; }
         public virtual DbSet<Tbl_IPAddress> Tbl_IPAddress { get; set; }
+        public virtual DbSet<Tbl_Log> Tbl_Log { get; set; }
         public virtual DbSet<Tbl_PageVisit> Tbl_PageVisit { get; set; }
         public virtual DbSet<Tbl_Role> Tbl_Role { get; set; }
         public virtual DbSet<Tbl_Session> Tbl_Session { get; set; }
-        public virtual DbSet<Tbl_Visitor> Tbl_Visitor { get; set; }
         public virtual DbSet<Tbl_User> Tbl_User { get; set; }
+        public virtual DbSet<Tbl_Visitor> Tbl_Visitor { get; set; }
     }
 }

@@ -50,9 +50,21 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -62,6 +74,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.OData, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.5.7.0\lib\net45\System.Web.Http.OData.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -1178,6 +1193,13 @@
     <Content Include="Scripts\Plugins\DataTables-1.10.18\js\dataTables.semanticui.min.js" />
     <Content Include="Scripts\Plugins\DataTables-1.10.18\js\jquery.dataTables.js" />
     <Content Include="Scripts\Plugins\DataTables-1.10.18\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\dist\jquery.json-editor.min.js" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\fis-conf.js" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\index.html" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\src\index.js" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\src\jquery.json-editor.js" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\src\jquery.json-viewer.css" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\src\jquery.json-viewer.js" />
     <Content Include="Scripts\Plugins\jQuery.Filepond\filepond-plugin-file-encode.esm.js" />
     <Content Include="Scripts\Plugins\jQuery.Filepond\filepond-plugin-file-encode.esm.min.js" />
     <Content Include="Scripts\Plugins\jQuery.Filepond\filepond-plugin-file-encode.js" />
@@ -1206,8 +1228,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiLogController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\VistorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1233,6 +1258,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domian\Tbl_IPAddress.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domian\Tbl_Log.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domian\Tbl_PageVisit.cs">
@@ -1262,12 +1290,17 @@
     <Compile Include="Models\ViewModels\Model_AccountInfo.cs" />
     <Compile Include="Models\ViewModels\Model_DashBoardInfo.cs" />
     <Compile Include="Models\ViewModels\Model_DropDown.cs" />
+    <Compile Include="Models\ViewModels\Model_IPAddressList.cs" />
     <Compile Include="Models\ViewModels\Model_Login.cs" />
+    <Compile Include="Models\ViewModels\Model_LogList.cs" />
+    <Compile Include="Models\ViewModels\Model_LogShow.cs" />
     <Compile Include="Models\ViewModels\Model_MessageModal.cs" />
     <Compile Include="Models\ViewModels\Model_Register.cs" />
     <Compile Include="Models\ViewModels\Model_UserAdd.cs" />
     <Compile Include="Models\ViewModels\Model_UserEdit.cs" />
     <Compile Include="Models\ViewModels\Model_UserList.cs" />
+    <Compile Include="Models\ViewModels\Model_VistorList.cs" />
+    <Compile Include="Models\ViewModels\Model_VistorPageList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1336,6 +1369,10 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Vistor\Index.cshtml" />
+    <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\Log\LogShow.cshtml" />
+    <Content Include="Scripts\Plugins\jQuery.BeautifulJSON\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -14,7 +14,7 @@ namespace StartDone.Analytics.Controllers
 {
     public class AccountController : Controller
     {
-        private static readonly StartDone_AnalyticsEntities db = new StartDone_AnalyticsEntities();
+        private StartDone_AnalyticsEntities db = new StartDone_AnalyticsEntities();
 
         [HttpGet]
         public ActionResult Login()

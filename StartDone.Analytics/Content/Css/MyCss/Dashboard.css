@@ -9,7 +9,7 @@ body {
 }
 
 .modal-content {
-    top: 15vh;
+    top: 40px;
     border-radius: 0px;
     background-color: #222D32;
     padding-bottom: 34px;
