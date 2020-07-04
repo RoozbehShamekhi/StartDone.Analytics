@@ -10,6 +10,8 @@ namespace StartDone.Analytics.Models.ViewModels
     {
         [Display(Name = "ردیف")]
         public int ID { get; set; }
+        [Display(Name = "IP")]
+        public string IP { get; set; }
         [Display(Name = "تاریخ")]
         public string DateTime { get; set; }
     }

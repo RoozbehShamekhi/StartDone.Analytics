@@ -29,7 +29,8 @@ namespace StartDone.Analytics.Controllers
                 _log.Add(new Model_LogList()
                 {
                     ID = item.Log_ID,
-                    DateTime = item.Log_DateTime.ToPeString("yyyy/MM/dd HH:MM")
+                    DateTime = item.Log_DateTime.ToPeString("yyyy/MM/dd HH:mm"),
+                    IP = item.Log_IP
                 });
             }
 
@@ -48,11 +49,13 @@ namespace StartDone.Analytics.Controllers
 
             List<Model_LogList> _log = new List<Model_LogList>();
 
-            foreach (var item in db.Tbl_Log.OrderBy(a => a.Log_ID).Take(100).ToList())
+            foreach (var item in db.Tbl_Log.OrderBy(a => a.Log_ID).ToList())
             {
                 _log.Add(new Model_LogList() {
                     ID = item.Log_ID ,
-                    DateTime = item.Log_DateTime.ToPeString("yyyy/MM/dd HH:MM") });
+                    DateTime = item.Log_DateTime.ToPeString("yyyy/MM/dd HH:mm"),
+                    IP = item.Log_IP
+                });
 
             }
 
@@ -62,6 +65,7 @@ namespace StartDone.Analytics.Controllers
             {
                 _log = _log.Where(x => x.ID.ToString().ToLower().Contains(searchValue.ToLower()) ||
                                                x.ID.ToString().ToLower().Contains(searchValue.ToLower()) ||
+                                               x.IP.ToLower().Contains(searchValue.ToLower()) ||
                                                x.DateTime.ToLower().Contains(searchValue.ToLower())).ToList();
             }
 

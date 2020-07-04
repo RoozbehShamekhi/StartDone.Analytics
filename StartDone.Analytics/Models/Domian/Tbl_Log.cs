@@ -22,6 +22,7 @@ namespace StartDone.Analytics.Models.Domian
     
         public int Log_ID { get; set; }
         public string Log_Raw { get; set; }
+        public string Log_IP { get; set; }
         public System.DateTime Log_DateTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

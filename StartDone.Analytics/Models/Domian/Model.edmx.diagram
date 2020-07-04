@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_Code" Width="1.5" PointX="3" PointY="4.375" />
         <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_CodeGroup" Width="1.5" PointX="0.75" PointY="4.875" />
         <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_IPAddress" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_Log" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_Log" Width="1.5" PointX="5.25" PointY="1.375" />
         <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_PageVisit" Width="1.5" PointX="7.5" PointY="3.875" />
         <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_Role" Width="1.5" PointX="0.75" PointY="9.625" />
         <EntityTypeShape EntityType="StartDone_AnalyticsModel.Tbl_Session" Width="1.5" PointX="7.5" PointY="8.75" />

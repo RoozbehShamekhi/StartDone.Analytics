@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using StartDone.Analytics.Models.Domian;
 using StartDone.Analytics.Models.ViewModels;
 
-namespace Wtiau.Health.Web.Models.Repository
+namespace StartDone.Analytics.Models.Repository
 {
     public class Rep_SelectItems
     {

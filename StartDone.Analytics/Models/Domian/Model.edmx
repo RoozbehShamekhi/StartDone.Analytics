@@ -41,6 +41,7 @@
           </Key>
           <Property Name="Log_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Log_Raw" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Log_IP" Type="nvarchar" MaxLength="50" />
           <Property Name="Log_DateTime" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Tbl_PageVisit">
@@ -350,6 +351,7 @@
           </Key>
           <Property Name="Log_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Log_Raw" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Log_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Log_DateTime" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Tbl_PageVisit" Relationship="StartDone_AnalyticsModel.FK_Log" FromRole="Tbl_Log" ToRole="Tbl_PageVisit" />
         </EntityType>
@@ -574,6 +576,7 @@
             <EntityTypeMapping TypeName="StartDone_AnalyticsModel.Tbl_Log">
               <MappingFragment StoreEntitySet="Tbl_Log">
                 <ScalarProperty Name="Log_DateTime" ColumnName="Log_DateTime" />
+                <ScalarProperty Name="Log_IP" ColumnName="Log_IP" />
                 <ScalarProperty Name="Log_Raw" ColumnName="Log_Raw" />
                 <ScalarProperty Name="Log_ID" ColumnName="Log_ID" />
               </MappingFragment>
