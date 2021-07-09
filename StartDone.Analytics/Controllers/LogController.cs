@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace StartDone.Analytics.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class LogController : Controller
     {
         private StartDone_AnalyticsEntities db = new StartDone_AnalyticsEntities();

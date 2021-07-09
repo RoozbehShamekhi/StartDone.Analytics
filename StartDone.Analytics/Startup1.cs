@@ -19,7 +19,7 @@ namespace StartDone.Analytics
             GlobalConfiguration.Configuration.UseSqlServerStorage("StartDone_Analytics_HangFire");
 
 
-            BackgroundJob.Enqueue(() => test());
+            BackgroundJob.Enqueue(() => FireAndForget());
 
             //BackgroundJob.Schedule(() => Console.WriteLine("Analytics"), TimeSpan.FromMilliseconds(100));
 
@@ -28,6 +28,7 @@ namespace StartDone.Analytics
             app.UseHangfireDashboard("/backgrandjob", new DashboardOptions() { 
              Authorization = new [] {new HangfireAthorizationFilter()},
              DisplayStorageConnectionString = false,
+             AppPath = "/dashboard"
              
             });
             app.UseHangfireServer();
@@ -39,10 +40,5 @@ namespace StartDone.Analytics
             Console.WriteLine("Service Started");
         }
 
-        public string test()
-        {
-            Thread.Sleep(10);
-            return "Joon";
-        }
     }
 }

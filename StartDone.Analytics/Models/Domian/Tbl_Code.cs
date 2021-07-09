@@ -17,8 +17,6 @@ namespace StartDone.Analytics.Models.Domian
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_Code()
         {
-            this.Tbl_PageVisit = new HashSet<Tbl_PageVisit>();
-            this.Tbl_PageVisit1 = new HashSet<Tbl_PageVisit>();
             this.Tbl_Visitor = new HashSet<Tbl_Visitor>();
         }
     
@@ -29,11 +27,7 @@ namespace StartDone.Analytics.Models.Domian
         public bool Code_IsActive { get; set; }
         public System.DateTime Code_CreateDatetime { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_PageVisit> Tbl_PageVisit { get; set; }
         public virtual Tbl_CodeGroup Tbl_CodeGroup { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_PageVisit> Tbl_PageVisit1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Visitor> Tbl_Visitor { get; set; }
     }

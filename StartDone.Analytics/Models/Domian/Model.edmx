@@ -31,9 +31,9 @@
           </Key>
           <Property Name="IA_ID" Type="int" Nullable="false" />
           <Property Name="IA_IP" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="IA_ContryID" Type="int" Nullable="false" />
-          <Property Name="IA_CityID" Type="int" Nullable="false" />
-          <Property Name="IA_ISP" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IA_ContryID" Type="int" />
+          <Property Name="IA_CityID" Type="int" />
+          <Property Name="IA_ISP" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Tbl_Log">
           <Key>
@@ -49,14 +49,16 @@
             <PropertyRef Name="PV_ID" />
           </Key>
           <Property Name="PV_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PV_VisitorID" Type="int" Nullable="false" />
+          <Property Name="PV_VisitorID" Type="int" />
           <Property Name="PV_LogID" Type="int" Nullable="false" />
+          <Property Name="PV_Session" Type="nvarchar(max)" />
+          <Property Name="PV_IPAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="PV_PageUrl" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PV_Referrer" Type="nvarchar(max)" />
           <Property Name="PV_WindowSize" Type="nvarchar" MaxLength="50" />
-          <Property Name="PV_BrowerCodeID" Type="int" />
+          <Property Name="PV_Brower" Type="nvarchar" MaxLength="128" />
           <Property Name="PV_BrowerInfo" Type="nvarchar(max)" />
-          <Property Name="PV_PlatformCodeID" Type="int" />
+          <Property Name="PV_Platform" Type="nvarchar" MaxLength="128" />
           <Property Name="PV_UserAgent" Type="nvarchar(max)" />
           <Property Name="PV_DateTime" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -78,6 +80,7 @@
           <Property Name="Session_StartDateTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Session_LastDateTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Session_VisitorID" Type="int" Nullable="false" />
+          <Property Name="Session_IPID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_User">
           <Key>
@@ -103,18 +106,6 @@
           <Property Name="Visitor_TypeCodeID" Type="int" Nullable="false" />
           <Property Name="Visitor_CreateDateTime" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <Association Name="FK_BrowerCode">
-          <End Role="Tbl_Code" Type="Self.Tbl_Code" Multiplicity="0..1" />
-          <End Role="Tbl_PageVisit" Type="Self.Tbl_PageVisit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Code">
-              <PropertyRef Name="Code_ID" />
-            </Principal>
-            <Dependent Role="Tbl_PageVisit">
-              <PropertyRef Name="PV_BrowerCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CodeGroup">
           <End Role="Tbl_CodeGroup" Type="Self.Tbl_CodeGroup" Multiplicity="1" />
           <End Role="Tbl_Code" Type="Self.Tbl_Code" Multiplicity="*" />
@@ -151,18 +142,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PlatformCode">
-          <End Role="Tbl_Code" Type="Self.Tbl_Code" Multiplicity="0..1" />
-          <End Role="Tbl_PageVisit" Type="Self.Tbl_PageVisit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Code">
-              <PropertyRef Name="Code_ID" />
-            </Principal>
-            <Dependent Role="Tbl_PageVisit">
-              <PropertyRef Name="PV_PlatformCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Role">
           <End Role="Tbl_Role" Type="Self.Tbl_Role" Multiplicity="1" />
           <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="*" />
@@ -172,6 +151,18 @@
             </Principal>
             <Dependent Role="Tbl_User">
               <PropertyRef Name="User_RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Session_Tbl_IPAddress">
+          <End Role="Tbl_IPAddress" Type="Self.Tbl_IPAddress" Multiplicity="0..1" />
+          <End Role="Tbl_Session" Type="Self.Tbl_Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_IPAddress">
+              <PropertyRef Name="IA_ID" />
+            </Principal>
+            <Dependent Role="Tbl_Session">
+              <PropertyRef Name="Session_IPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -188,7 +179,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Visitor">
-          <End Role="Tbl_Visitor" Type="Self.Tbl_Visitor" Multiplicity="1" />
+          <End Role="Tbl_Visitor" Type="Self.Tbl_Visitor" Multiplicity="0..1" />
           <End Role="Tbl_PageVisit" Type="Self.Tbl_PageVisit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_Visitor">
@@ -221,10 +212,6 @@
           <EntitySet Name="Tbl_Session" EntityType="Self.Tbl_Session" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Visitor" EntityType="Self.Tbl_Visitor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BrowerCode" Association="Self.FK_BrowerCode">
-            <End Role="Tbl_Code" EntitySet="Tbl_Code" />
-            <End Role="Tbl_PageVisit" EntitySet="Tbl_PageVisit" />
-          </AssociationSet>
           <AssociationSet Name="FK_CodeGroup" Association="Self.FK_CodeGroup">
             <End Role="Tbl_CodeGroup" EntitySet="Tbl_CodeGroup" />
             <End Role="Tbl_Code" EntitySet="Tbl_Code" />
@@ -237,13 +224,13 @@
             <End Role="Tbl_Log" EntitySet="Tbl_Log" />
             <End Role="Tbl_PageVisit" EntitySet="Tbl_PageVisit" />
           </AssociationSet>
-          <AssociationSet Name="FK_PlatformCode" Association="Self.FK_PlatformCode">
-            <End Role="Tbl_Code" EntitySet="Tbl_Code" />
-            <End Role="Tbl_PageVisit" EntitySet="Tbl_PageVisit" />
-          </AssociationSet>
           <AssociationSet Name="FK_Role" Association="Self.FK_Role">
             <End Role="Tbl_Role" EntitySet="Tbl_Role" />
             <End Role="Tbl_User" EntitySet="Tbl_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Session_Tbl_IPAddress" Association="Self.FK_Tbl_Session_Tbl_IPAddress">
+            <End Role="Tbl_IPAddress" EntitySet="Tbl_IPAddress" />
+            <End Role="Tbl_Session" EntitySet="Tbl_Session" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Session_Tbl_Visitor" Association="Self.FK_Tbl_Session_Tbl_Visitor">
             <End Role="Tbl_Visitor" EntitySet="Tbl_Visitor" />
@@ -272,17 +259,9 @@
           <EntitySet Name="Tbl_Session" EntityType="StartDone_AnalyticsModel.Tbl_Session" />
           <EntitySet Name="Tbl_User" EntityType="StartDone_AnalyticsModel.Tbl_User" />
           <EntitySet Name="Tbl_Visitor" EntityType="StartDone_AnalyticsModel.Tbl_Visitor" />
-          <AssociationSet Name="FK_BrowerCode" Association="StartDone_AnalyticsModel.FK_BrowerCode">
-            <End Role="Tbl_Code" EntitySet="Tbl_Code" />
-            <End Role="Tbl_PageVisit" EntitySet="Tbl_PageVisit" />
-          </AssociationSet>
           <AssociationSet Name="FK_CodeGroup" Association="StartDone_AnalyticsModel.FK_CodeGroup">
             <End Role="Tbl_CodeGroup" EntitySet="Tbl_CodeGroup" />
             <End Role="Tbl_Code" EntitySet="Tbl_Code" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlatformCode" Association="StartDone_AnalyticsModel.FK_PlatformCode">
-            <End Role="Tbl_Code" EntitySet="Tbl_Code" />
-            <End Role="Tbl_PageVisit" EntitySet="Tbl_PageVisit" />
           </AssociationSet>
           <AssociationSet Name="FK_VisitorCode" Association="StartDone_AnalyticsModel.FK_VisitorCode">
             <End Role="Tbl_Code" EntitySet="Tbl_Code" />
@@ -291,6 +270,10 @@
           <AssociationSet Name="FK_IP" Association="StartDone_AnalyticsModel.FK_IP">
             <End Role="Tbl_IPAddress" EntitySet="Tbl_IPAddress" />
             <End Role="Tbl_Visitor" EntitySet="Tbl_Visitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Session_Tbl_IPAddress" Association="StartDone_AnalyticsModel.FK_Tbl_Session_Tbl_IPAddress">
+            <End Role="Tbl_IPAddress" EntitySet="Tbl_IPAddress" />
+            <End Role="Tbl_Session" EntitySet="Tbl_Session" />
           </AssociationSet>
           <AssociationSet Name="FK_Log" Association="StartDone_AnalyticsModel.FK_Log">
             <End Role="Tbl_Log" EntitySet="Tbl_Log" />
@@ -319,9 +302,7 @@
           <Property Name="Code_CGID" Type="Int32" Nullable="false" />
           <Property Name="Code_IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Code_CreateDatetime" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Tbl_PageVisit" Relationship="StartDone_AnalyticsModel.FK_BrowerCode" FromRole="Tbl_Code" ToRole="Tbl_PageVisit" />
           <NavigationProperty Name="Tbl_CodeGroup" Relationship="StartDone_AnalyticsModel.FK_CodeGroup" FromRole="Tbl_Code" ToRole="Tbl_CodeGroup" />
-          <NavigationProperty Name="Tbl_PageVisit1" Relationship="StartDone_AnalyticsModel.FK_PlatformCode" FromRole="Tbl_Code" ToRole="Tbl_PageVisit" />
           <NavigationProperty Name="Tbl_Visitor" Relationship="StartDone_AnalyticsModel.FK_VisitorCode" FromRole="Tbl_Code" ToRole="Tbl_Visitor" />
         </EntityType>
         <EntityType Name="Tbl_CodeGroup">
@@ -340,10 +321,11 @@
           </Key>
           <Property Name="IA_ID" Type="Int32" Nullable="false" />
           <Property Name="IA_IP" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="IA_ContryID" Type="Int32" Nullable="false" />
-          <Property Name="IA_CityID" Type="Int32" Nullable="false" />
-          <Property Name="IA_ISP" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IA_ContryID" Type="Int32" />
+          <Property Name="IA_CityID" Type="Int32" />
+          <Property Name="IA_ISP" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tbl_Visitor" Relationship="StartDone_AnalyticsModel.FK_IP" FromRole="Tbl_IPAddress" ToRole="Tbl_Visitor" />
+          <NavigationProperty Name="Tbl_Session" Relationship="StartDone_AnalyticsModel.FK_Tbl_Session_Tbl_IPAddress" FromRole="Tbl_IPAddress" ToRole="Tbl_Session" />
         </EntityType>
         <EntityType Name="Tbl_Log">
           <Key>
@@ -360,18 +342,18 @@
             <PropertyRef Name="PV_ID" />
           </Key>
           <Property Name="PV_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PV_VisitorID" Type="Int32" Nullable="false" />
+          <Property Name="PV_VisitorID" Type="Int32" />
           <Property Name="PV_LogID" Type="Int32" Nullable="false" />
+          <Property Name="PV_Session" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PV_IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PV_PageUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PV_Referrer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PV_WindowSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PV_BrowerCodeID" Type="Int32" />
+          <Property Name="PV_Brower" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PV_BrowerInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PV_PlatformCodeID" Type="Int32" />
+          <Property Name="PV_Platform" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PV_UserAgent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PV_DateTime" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Tbl_Code" Relationship="StartDone_AnalyticsModel.FK_BrowerCode" FromRole="Tbl_PageVisit" ToRole="Tbl_Code" />
-          <NavigationProperty Name="Tbl_Code1" Relationship="StartDone_AnalyticsModel.FK_PlatformCode" FromRole="Tbl_PageVisit" ToRole="Tbl_Code" />
           <NavigationProperty Name="Tbl_Log" Relationship="StartDone_AnalyticsModel.FK_Log" FromRole="Tbl_PageVisit" ToRole="Tbl_Log" />
           <NavigationProperty Name="Tbl_Visitor" Relationship="StartDone_AnalyticsModel.FK_Visitor" FromRole="Tbl_PageVisit" ToRole="Tbl_Visitor" />
         </EntityType>
@@ -394,6 +376,8 @@
           <Property Name="Session_StartDateTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Session_LastDateTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Session_VisitorID" Type="Int32" Nullable="false" />
+          <Property Name="Session_IPID" Type="Int32" />
+          <NavigationProperty Name="Tbl_IPAddress" Relationship="StartDone_AnalyticsModel.FK_Tbl_Session_Tbl_IPAddress" FromRole="Tbl_Session" ToRole="Tbl_IPAddress" />
           <NavigationProperty Name="Tbl_Visitor" Relationship="StartDone_AnalyticsModel.FK_Tbl_Session_Tbl_Visitor" FromRole="Tbl_Session" ToRole="Tbl_Visitor" />
         </EntityType>
         <EntityType Name="Tbl_User">
@@ -425,18 +409,6 @@
           <NavigationProperty Name="Tbl_PageVisit" Relationship="StartDone_AnalyticsModel.FK_Visitor" FromRole="Tbl_Visitor" ToRole="Tbl_PageVisit" />
           <NavigationProperty Name="Tbl_Session" Relationship="StartDone_AnalyticsModel.FK_Tbl_Session_Tbl_Visitor" FromRole="Tbl_Visitor" ToRole="Tbl_Session" />
         </EntityType>
-        <Association Name="FK_BrowerCode">
-          <End Type="StartDone_AnalyticsModel.Tbl_Code" Role="Tbl_Code" Multiplicity="0..1" />
-          <End Type="StartDone_AnalyticsModel.Tbl_PageVisit" Role="Tbl_PageVisit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Code">
-              <PropertyRef Name="Code_ID" />
-            </Principal>
-            <Dependent Role="Tbl_PageVisit">
-              <PropertyRef Name="PV_BrowerCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CodeGroup">
           <End Type="StartDone_AnalyticsModel.Tbl_CodeGroup" Role="Tbl_CodeGroup" Multiplicity="1" />
           <End Type="StartDone_AnalyticsModel.Tbl_Code" Role="Tbl_Code" Multiplicity="*" />
@@ -446,18 +418,6 @@
             </Principal>
             <Dependent Role="Tbl_Code">
               <PropertyRef Name="Code_CGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlatformCode">
-          <End Type="StartDone_AnalyticsModel.Tbl_Code" Role="Tbl_Code" Multiplicity="0..1" />
-          <End Type="StartDone_AnalyticsModel.Tbl_PageVisit" Role="Tbl_PageVisit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Code">
-              <PropertyRef Name="Code_ID" />
-            </Principal>
-            <Dependent Role="Tbl_PageVisit">
-              <PropertyRef Name="PV_PlatformCodeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -485,6 +445,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_Session_Tbl_IPAddress">
+          <End Type="StartDone_AnalyticsModel.Tbl_IPAddress" Role="Tbl_IPAddress" Multiplicity="0..1" />
+          <End Type="StartDone_AnalyticsModel.Tbl_Session" Role="Tbl_Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_IPAddress">
+              <PropertyRef Name="IA_ID" />
+            </Principal>
+            <Dependent Role="Tbl_Session">
+              <PropertyRef Name="Session_IPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Log">
           <End Type="StartDone_AnalyticsModel.Tbl_Log" Role="Tbl_Log" Multiplicity="1" />
           <End Type="StartDone_AnalyticsModel.Tbl_PageVisit" Role="Tbl_PageVisit" Multiplicity="*" />
@@ -498,7 +470,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Visitor">
-          <End Type="StartDone_AnalyticsModel.Tbl_Visitor" Role="Tbl_Visitor" Multiplicity="1" />
+          <End Type="StartDone_AnalyticsModel.Tbl_Visitor" Role="Tbl_Visitor" Multiplicity="0..1" />
           <End Type="StartDone_AnalyticsModel.Tbl_PageVisit" Role="Tbl_PageVisit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_Visitor">
@@ -587,12 +559,14 @@
               <MappingFragment StoreEntitySet="Tbl_PageVisit">
                 <ScalarProperty Name="PV_DateTime" ColumnName="PV_DateTime" />
                 <ScalarProperty Name="PV_UserAgent" ColumnName="PV_UserAgent" />
-                <ScalarProperty Name="PV_PlatformCodeID" ColumnName="PV_PlatformCodeID" />
+                <ScalarProperty Name="PV_Platform" ColumnName="PV_Platform" />
                 <ScalarProperty Name="PV_BrowerInfo" ColumnName="PV_BrowerInfo" />
-                <ScalarProperty Name="PV_BrowerCodeID" ColumnName="PV_BrowerCodeID" />
+                <ScalarProperty Name="PV_Brower" ColumnName="PV_Brower" />
                 <ScalarProperty Name="PV_WindowSize" ColumnName="PV_WindowSize" />
                 <ScalarProperty Name="PV_Referrer" ColumnName="PV_Referrer" />
                 <ScalarProperty Name="PV_PageUrl" ColumnName="PV_PageUrl" />
+                <ScalarProperty Name="PV_IPAddress" ColumnName="PV_IPAddress" />
+                <ScalarProperty Name="PV_Session" ColumnName="PV_Session" />
                 <ScalarProperty Name="PV_LogID" ColumnName="PV_LogID" />
                 <ScalarProperty Name="PV_VisitorID" ColumnName="PV_VisitorID" />
                 <ScalarProperty Name="PV_ID" ColumnName="PV_ID" />
@@ -612,6 +586,7 @@
           <EntitySetMapping Name="Tbl_Session">
             <EntityTypeMapping TypeName="StartDone_AnalyticsModel.Tbl_Session">
               <MappingFragment StoreEntitySet="Tbl_Session">
+                <ScalarProperty Name="Session_IPID" ColumnName="Session_IPID" />
                 <ScalarProperty Name="Session_VisitorID" ColumnName="Session_VisitorID" />
                 <ScalarProperty Name="Session_LastDateTime" ColumnName="Session_LastDateTime" />
                 <ScalarProperty Name="Session_StartDateTime" ColumnName="Session_StartDateTime" />

@@ -1308,6 +1308,7 @@
     <Compile Include="Models\Plugins\PersianDateExtensionMethods.cs" />
     <Compile Include="Models\Repository\Rep_CodeGroup.cs" />
     <Compile Include="Models\Repository\Rep_Dashboard.cs" />
+    <Compile Include="Models\Repository\Rep_Log.cs" />
     <Compile Include="Models\Repository\Rep_SelectItems.cs" />
     <Compile Include="Models\Repository\Rep_User.cs" />
     <Compile Include="Models\Repository\Rep_UserRole.cs" />
@@ -1317,6 +1318,7 @@
     <Compile Include="Models\ViewModels\Model_IPAddressList.cs" />
     <Compile Include="Models\ViewModels\Model_Login.cs" />
     <Compile Include="Models\ViewModels\Model_LogList.cs" />
+    <Compile Include="Models\ViewModels\Model_LogRaw.cs" />
     <Compile Include="Models\ViewModels\Model_LogShow.cs" />
     <Compile Include="Models\ViewModels\Model_MessageModal.cs" />
     <Compile Include="Models\ViewModels\Model_Register.cs" />

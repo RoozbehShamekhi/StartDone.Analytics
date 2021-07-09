@@ -18,15 +18,18 @@ namespace StartDone.Analytics.Models.Domian
         public Tbl_IPAddress()
         {
             this.Tbl_Visitor = new HashSet<Tbl_Visitor>();
+            this.Tbl_Session = new HashSet<Tbl_Session>();
         }
     
         public int IA_ID { get; set; }
         public string IA_IP { get; set; }
-        public int IA_ContryID { get; set; }
-        public int IA_CityID { get; set; }
+        public Nullable<int> IA_ContryID { get; set; }
+        public Nullable<int> IA_CityID { get; set; }
         public string IA_ISP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_Visitor> Tbl_Visitor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_Session> Tbl_Session { get; set; }
     }
 }

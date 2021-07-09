@@ -15,19 +15,19 @@ namespace StartDone.Analytics.Models.Domian
     public partial class Tbl_PageVisit
     {
         public int PV_ID { get; set; }
-        public int PV_VisitorID { get; set; }
+        public Nullable<int> PV_VisitorID { get; set; }
         public int PV_LogID { get; set; }
+        public string PV_Session { get; set; }
+        public string PV_IPAddress { get; set; }
         public string PV_PageUrl { get; set; }
         public string PV_Referrer { get; set; }
         public string PV_WindowSize { get; set; }
-        public Nullable<int> PV_BrowerCodeID { get; set; }
+        public string PV_Brower { get; set; }
         public string PV_BrowerInfo { get; set; }
-        public Nullable<int> PV_PlatformCodeID { get; set; }
+        public string PV_Platform { get; set; }
         public string PV_UserAgent { get; set; }
         public System.DateTime PV_DateTime { get; set; }
     
-        public virtual Tbl_Code Tbl_Code { get; set; }
-        public virtual Tbl_Code Tbl_Code1 { get; set; }
         public virtual Tbl_Log Tbl_Log { get; set; }
         public virtual Tbl_Visitor Tbl_Visitor { get; set; }
     }

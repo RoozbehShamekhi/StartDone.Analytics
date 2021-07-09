@@ -19,7 +19,9 @@ namespace StartDone.Analytics.Models.Domian
         public System.DateTime Session_StartDateTime { get; set; }
         public System.DateTime Session_LastDateTime { get; set; }
         public int Session_VisitorID { get; set; }
+        public Nullable<int> Session_IPID { get; set; }
     
+        public virtual Tbl_IPAddress Tbl_IPAddress { get; set; }
         public virtual Tbl_Visitor Tbl_Visitor { get; set; }
     }
 }
